@@ -7,7 +7,7 @@
 @import '_iconfont';
 
 $mediumGreen 	: #3c763d;
-$lightGreen 	: #84bd55; //primary buttons color
+$lightGreen 	: #f78744; //primary buttons color
 $lightBrown 	: #f8f4e5; //background
 $darkGrey 		: #333;
 $mediumGrey		: #666;
@@ -170,7 +170,7 @@ ul.nav{
 /* Footer */
 
 #footer {
-	background: #84BD55;
+	background: #f78744;
 	border-radius: 8px;
 	padding: 20px;
 	ul>li>a {
@@ -496,7 +496,7 @@ div.reportHeader{
 	}
 	.distance {
 		font-weight: bold;
-		color: #84bd55;
+		color: #f78744;
 		font-size: 1.2em;
 		position: absolute;
 		right: 8px;

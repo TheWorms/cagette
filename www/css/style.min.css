@@ -2,7 +2,7 @@
 a{cursor:pointer;}
 ul.nav li{text-transform:uppercase;font-size:14px;}
 .nav-pills>li.active>a{background-color:#efe9d5!important;color:#e95216!important;}
-#footer{background:#84BD55;border-radius:8px;padding:20px;}
+#footer{background:#f78744;border-radius:8px;padding:20px;}
 #footer ul>li>a{color:#333;}
 #footer ul{margin:3px 0 0;padding:0;text-align:left;list-style:none;font-size:14px;}
 #footer .cagsocialmedia li a{color:#fff;font-size:20px;min-width:32px;padding:2px 0 0;display:inline-block;}
