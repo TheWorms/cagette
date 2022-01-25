@@ -53,9 +53,6 @@
 					<a href="http://wiki.cagette.net" target="_blank"><i class="icon icon-book"></i> Documentation</a> 
 				</li>
 				<li>
-					<a href="https://www.facebook.com/groups/EntraideCagette/" target="_blank"><i class="icon icon-facebook"></i> Groupe Facebook</a> 
-				</li>
-				<li>
 					<a href="https://www.cagette.pro" target="_blank"><i class="icon icon-student"></i> Formations pour producteurs</a> 
 				</li>				
 			</ul>
@@ -431,63 +428,31 @@
 			<div class="row" id="footer">
 			
 					<div class="col-md-3" >
-						<a href="http://www.cagette.net" target="_blank">
-							<img src="/img/logo.png" alt="::_("Cagette.net")::"/>
+						<a href="http://www.agrumesetc.org" target="_blank">
+							<img src="/img/logo.png" alt="::_("Agrumes etc")::"/>
 						</a>  
 					</div>
 					<div class="col-md-3" >
 						::_("HELP")::
+						<br />
 						<ul>
 							<li> 
 								<a href="http://www.cagette.net/wiki" target="_blank">::_("Documentation")::</a> 
 							</li>
 							<li>
-								<a href="https://www.facebook.com/groups/EntraideCagette/" target="_blank">::_("Facebook group")::</a> 
-							</li>
-							<li>
 								<a href="https://www.cagette.pro" target="_blank">Formations pour producteurs</a> 
-							</li>
-							<li>
-								::if (user!=null && user.isAmapManager()):: <a href="https://cagette.uservoice.com" target="_blank">::_("Propose features")::</a>  ::end::
 							</li>
 						</ul>
 						
 					</div>
 					<div class="col-md-3" >
-						SOUTENEZ-NOUS
-						<ul>
-							<li>
-								<a href="http://www.lilo.org/fr/cagette-net/?utm_source=cagette-net" target="_blank">Notre page sur Lilo.org</a>
-							</li>
-						</ul>
-						<!-- PAYPAL !-->
-						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin-top:12px;">
-							<input type="hidden" name="cmd" value="_s-xclick"/>
-							<input type="hidden" name="hosted_button_id" value="S9KT7FQS7P622"/>
-							<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne"/>
-							<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1"/>
-						</form>
+						INFOS
 					</div>
 					<div class="col-md-3" >
-						::_("FOLLOW US")::
-						<ul class="cagsocialmedia">
-							<li class="cagfb">
-								<a title="Facebook" href="https://www.facebook.com/cagette" target="_blank"> <i class="icon icon-facebook"></i></a>	
-							</li>
-							<li class="cagtwitter">
-								<a title="Twitter" href="https://twitter.com/Cagettenet" target="_blank"> <i class="icon icon-twitter"></i></a> 
-							</li>
-							<li class="cagyoutube">
-								<a title="Youtube" href="https://www.youtube.com/channel/UC3cvGxAUrbN9oSZmr1oZEaw" target="_blank"> <i class="icon icon-youtube"></i></a> 						
-							</li>
-							<li style="background-color:#333;">
-								<a title="Github" href="https://github.com/bablukid/cagette" target="_blank"> <i class="icon icon-github"></i></a> 						
-							</li>
-						</ul>
-	
-						<br/>
-						Cagette.net est réalisé <br/>
-						par la <a href='https://www.alilo.fr' target='_blank'>SCOP Alilo</a>
+						A PROPOS
+						<br />
+						Propulsé par <a title="Github" href="https://github.com/CagetteNet/cagette" target="_blank">Cagette.net</a><br/>
+						Réalisé par la <a href='https://www.alilo.fr' target='_blank'>SCOP Alilo</a>
 					</div>
 					
 				
@@ -502,13 +467,6 @@
 	<macro name="ga()">
 		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async="1" src="https://www.googletagmanager.com/gtag/js?id=UA-81371329-2"></script>
-		<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'UA-81371329-2');
-		</script>
 
 	</macro>
 
