@@ -16,7 +16,7 @@
 					<h1>::groupName::</h1>
 				::else::
 					<div style="margin-bottom:22px;" >
-							<a href="http://www.cagette.net" target="_blank">
+							<a href="http://www.agrumesetc.org" target="_blank">
 								<img src="/img/logo3.png" alt="::NAME::" />
 							</a>
 					</div>		
@@ -140,7 +140,7 @@
 		<!--<div class="row footer-info">
 			<div class="col-md-12 alert-danger text-center" style="border-radius: 8px;margin:8px 0;padding:8px 0;">
 				<span class="glyphicon glyphicon-cog"></span>
-				<b>Attention</b> : Cagette.net sera en maintenance le <b>mercredi 6 Février de 23h à 2h</b>.				
+				<b>Attention</b> : Agrumesetc.org sera en maintenance le <b>mercredi 6 Février de 23h à 2h</b>.				
 				
 			</div>
 		</div>-->

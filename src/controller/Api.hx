@@ -53,14 +53,6 @@ class Api extends Controller
 		sugoi.Web.setReturnCode(403);
 	}*/
 	
-	
-	#if plugins
-	//cagette-pro
-	public function doPro(d:haxe.web.Dispatch) {
-		d.dispatch(new pro.controller.api.Main());
-	}	
-	#end
-	
 	public function doShop(d:haxe.web.Dispatch) {
 		d.dispatch(new controller.api.ShopApi());
 	}	

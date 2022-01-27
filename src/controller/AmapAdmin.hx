@@ -75,38 +75,7 @@ class AmapAdmin extends Controller
 	function doDefault() {
 		var group = app.user.getGroup();
 		view.membersNum = UserGroup.manager.count($group == group);
-		view.contractsNum = group.getActiveContracts().length;
-		
-		//visible on map
-		#if plugins
-		var h = hosted.db.Hosting.getOrCreate(group.id, true);
-		var o = h.updateVisible();
-		
-		var str = "";
-		if(!o.cagetteNetwork){
-			str += "L'option 'Me lister dans l'annuaire des groupes Cagette.net' n'est pas cochée. ";
-		}
-		if (!o.geoloc){
-			str += "Votre lieu de distribution n'a pas pu être géolocaliser, merci de compléter ou corriger son adresse. ";
-		}
-		if( ! o.distributions ){
-			str += "Vous devez avoir des distributions planifiées. ";
-		}
-		if(!o.members){
-			str += "Vous devez avoir au moins 3 personnes dans votre groupe. ";
-		}
-
-		view.visibleOnMapText = str;
-		view.visibleOnMap = o.visible;
-
-		#else
-		view.visibleOnMap = true;
-		#end
-
-		
-		
-
-		
+		view.contractsNum = group.getActiveContracts().length;	
 	}
 	
 	@tpl("amapadmin/rights.mtt")

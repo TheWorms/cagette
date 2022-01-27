@@ -327,12 +327,6 @@ class Admin extends Controller {
 			}
 		}
 
-		//delete cagette pro
-		#if plugins
-		pro.db.CagettePro.manager.delete($training==true);	
-		#end
-
-
 		//delete unlinked vendors
 		for ( v in db.Vendor.manager.all(true)	){
 			if(db.Catalog.manager.select($vendor==v,false)==null){
@@ -353,12 +347,6 @@ class Admin extends Controller {
 
 			//group logo
 			if(db.Vendor.manager.select($image==f)!=null) continue;
-
-			#if plugins
-			if(pro.db.PProduct.manager.select($image==f)!=null) continue;
-			if(pro.db.POffer.manager.select($image==f)!=null) continue;
-
-			#end
 
 			f.delete();
 		}
@@ -388,11 +376,6 @@ class Admin extends Controller {
 
 			//group logo
 			if(db.Vendor.manager.select($image==f)!=null) continue;
-
-			#if plugins
-			if(pro.db.PProduct.manager.select($image==f)!=null) continue;
-			if(pro.db.POffer.manager.select($image==f)!=null) continue;
-			#end
 			
 			Sys.println("delete "+f.toString()+" <br/>");
 			f.delete();

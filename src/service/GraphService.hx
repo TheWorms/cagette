@@ -73,14 +73,6 @@ class GraphService{
     }
 
     public static  function mangopay(from:Date,to:Date):Int{
-        #if plugins
-        var ops = Operation.manager.search($type==OperationType.Payment && $date>=from && $date<to);
-		var value = 0.0;
-		for( op in ops){
-			if(op.getPaymentType()==MangopayECPayment.TYPE) value += op.amount;
-		}
-		return Math.round(value);
-        #end
         return 0;
     }
 

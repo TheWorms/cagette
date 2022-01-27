@@ -77,10 +77,6 @@ typedef VendorInfos = {
 	linkUrl:String,
 }
 
-#if plugins 
-typedef CagetteProInfo = VendorInfos;
-#end
-
 typedef ContractInfo = {
 	id:Int,
 	name:String,

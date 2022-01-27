@@ -424,14 +424,6 @@ class DistributionService
 			because it would make the order and payment ops out of sync
 			*/
 			var orders = d.getOrders();
-			#if plugins
-			if(d.catalog.group.hasPayments() && orders.length>0){
-				var paymentTypes = PaymentService.getPaymentTypes( PaymentContext.PCPayment , newMd.getGroup() );
-				if( paymentTypes.find( p -> return p.type==MangopayECPayment.TYPE || p.type==MangopayMPPayment.TYPE ) != null ){
-					throw new Error("Les décalages de distributions sont interdits lorsque le paiement en ligne est activé et que des commandes sont déjà enregistrées.");
-				}
-			}
-			#end
 
 			//different multidistrib id : should change the baskets	
 			for ( o in orders ){

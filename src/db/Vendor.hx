@@ -195,12 +195,6 @@ class Vendor extends Object
 		PROFESSIONS = json.professions;
 		return json.professions;
 	}
-
-	#if plugins
-	public function getCpro(){
-		return pro.db.CagettePro.getFromVendor(this);
-	}
-	#end	
 	
 	public static function getLabels(){
 		var t = sugoi.i18n.Locale.texts;

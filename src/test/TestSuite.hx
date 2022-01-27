@@ -26,15 +26,6 @@ class TestSuite
 		r.addCase(new test.TestReports());
 		r.addCase(new test.TestSubscriptions());
 
-		#if plugins
-		//Cagette-pro tests, keep in this order
-		r.addCase(new pro.test.TestProductService());
-		r.addCase(new pro.test.TestRemoteCatalog());		
-		r.addCase(new pro.test.TestReports());
-		r.addCase(new who.test.TestWho());
-		r.addCase(new pro.test.TestStock());
-		//r.addCase(new pro.test.TestMarketplacePayment());
-		#end
 		Report.create(r);
 		r.run();
 	}
@@ -103,12 +94,6 @@ class TestSuite
 		];
 	
 		for(t in tables) createTable(t);
-
-		#if plugins
-		//add Cpro datas : we need those tables even in cagette core tests
-		pro.test.ProTestSuite.initDB();
-		pro.test.ProTestSuite.initDatas();
-		#end
 	}
 	
 	public static function createTable( m  ){
@@ -501,13 +486,6 @@ class TestSuite
 		app.plugins.push(new plugin.Tutorial());
 		
 		//optionnal plugins
-		#if plugins
-		//app.plugins.push( new hosted.HostedPlugIn() );				
-		app.plugins.push( new pro.ProPlugIn() );		
-		app.plugins.push( new connector.ConnectorPlugIn() );				
-		//app.plugins.push( new pro.LemonwayEC() );
-		//app.plugins.push( new who.WhoPlugIn() );
-		#end
 		
 		App.current.user = u;
 		App.current.view = new View();
