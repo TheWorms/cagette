@@ -3,6 +3,10 @@ import db.Operation.OperationType;
 import Common;
 import service.OrderService;
 using Lambda;
+#if plugins
+import mangopay.Mangopay;
+import mangopay.Types;
+#end
 import sugoi.form.elements.NativeDatePicker.NativeDatePickerType;
 
 /**
@@ -177,6 +181,14 @@ class Transaction extends controller.Controller
 				throw Redirect("/shop/validate/"+tmpBasket.id);				
 			}
 		}
+
+		
+		#if plugins
+		//MANGOPAY : search for "unlinked" confirmed payIns on Mangopay
+		if(mangopay.MangopayPlugin.checkTmpBasket(tmpBasket)!=null){
+			throw Ok("/home","Votre paiement a été pris en compte et votre commande a bien été enregistrée.");
+		}
+		#end
 
 		view.tmpBasket = tmpBasket;		
 	}

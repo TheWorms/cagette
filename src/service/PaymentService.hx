@@ -79,6 +79,11 @@ class PaymentService
 				var paymentTypesInAdmin = getPaymentTypes(PCGroupAdmin);
 				var moneyPot = Lambda.find(paymentTypesInAdmin, function(x) return x.type == payment.MoneyPot.TYPE);
 				paymentTypesInAdmin.remove(moneyPot);
+				#if plugins
+				//cannot make a mgp payment manually !!
+				var mgp = paymentTypesInAdmin.find( x -> x.type == pro.payment.MangopayMPPayment.TYPE || x.type == pro.payment.MangopayECPayment.TYPE );
+				paymentTypesInAdmin.remove(mgp);
+				#end
 				out = paymentTypesInAdmin;
 		}
 

@@ -621,6 +621,25 @@ class User extends Object {
 				return App.current.session.data.userVoiceInfos;
 			}
 		}
+		#if plugins
+		var uc = pro.db.PUserCompany.manager.select($user==this);
+		if(uc==null){
+			var g  = this.getGroup();
+			if(g==null) return null;
+			infos = {
+				type:"Administrateur de groupe",
+				id:g.id,
+				name:g.name
+			};
+		}else{			
+			var vendor = uc.company.vendor;
+			infos = {
+				type:"Cagette Pro",
+				id:vendor.id,
+				name:vendor.name
+			};
+		}
+		#end
 		App.current.session.data.userVoiceInfos = infos;
 		return infos;
 	}

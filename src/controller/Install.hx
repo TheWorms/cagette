@@ -1,5 +1,4 @@
 package controller;
-import db.MultiDistrib;
 import service.SubscriptionService;
 import sugoi.db.Variable;
 import sugoi.form.elements.StringInput;
@@ -125,31 +124,22 @@ class Install extends controller.Controller
 				p.price = 10;
 				p.vat = 5;
 				p.catalog = contract;
-				p.insert();		
-				
-				var md = new db.MultiDistrib();
-				md.distribStartDate = DateTools.delta(Date.now(), 1000.0 * 60 * 60 * 24 * 14);
-				md.distribEndDate = DateTools.delta(md.distribStartDate, 1000.0 * 60 * 90);
-				md.place = place;
-				md.group = amap;
-				md.insert();
-				
-				var d = new db.Distribution();
-				d.catalog = contract;
-				d.date = DateTools.delta(Date.now(), 1000.0 * 60 * 60 * 24 * 14);
-				d.end = DateTools.delta(d.date, 1000.0 * 60 * 90);				
-				d.multiDistrib = md;
-				d.place = place;
-				d.insert();
-
+				p.insert();
+			
 				var uc = new db.UserOrder();
 				uc.user = user;
 				uc.product = p;
 				uc.paid = true;
 				uc.quantity = 1;
 				uc.productPrice = 10;
-				uc.distribution = d;
 				uc.insert();
+				
+				var d = new db.Distribution();
+				d.catalog = contract;
+				d.date = DateTools.delta(Date.now(), 1000.0 * 60 * 60 * 24 * 14);
+				d.end = DateTools.delta(d.date, 1000.0 * 60 * 90);
+				d.place = place;
+				d.insert();
 				
 				App.current.user = null;
 				App.current.session.setUser(user);

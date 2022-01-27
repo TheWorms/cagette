@@ -11,7 +11,6 @@
     'redux': require('redux'),
     'react-avatar-editor': require('react-avatar-editor'),
     'react-dropzone': require('react-dropzone'),
-    'react-transition-group' : require('react-transition-group'),
     'react-redux': require('react-redux'),
     'prop-types': require('prop-types'),
     'react-dom': require('react-dom'),

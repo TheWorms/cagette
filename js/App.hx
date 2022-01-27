@@ -416,6 +416,12 @@ class App {
 	}
 
 
+	#if plugins
+	/*public function getHostedPlugin(){
+		return new hosted.js.App();
+	}*/
+	#end
+
 	/**
 	 * set up a warning message when leaving the page
 	 */

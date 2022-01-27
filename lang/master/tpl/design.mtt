@@ -16,7 +16,7 @@
 					<h1>::groupName::</h1>
 				::else::
 					<div style="margin-bottom:22px;" >
-							<a href="http://www.agrumesetc.org" target="_blank">
+							<a href="http://www.cagette.net" target="_blank">
 								<img src="/img/logo3.png" alt="::NAME::" />
 							</a>
 					</div>		
@@ -140,7 +140,7 @@
 		<!--<div class="row footer-info">
 			<div class="col-md-12 alert-danger text-center" style="border-radius: 8px;margin:8px 0;padding:8px 0;">
 				<span class="glyphicon glyphicon-cog"></span>
-				<b>Attention</b> : Agrumesetc.org sera en maintenance le <b>mercredi 6 Février de 23h à 2h</b>.				
+				<b>Attention</b> : Cagette.net sera en maintenance le <b>mercredi 6 Février de 23h à 2h</b>.				
 				
 			</div>
 		</div>-->
@@ -164,5 +164,52 @@
 				</table>
 			</div>
 		</div>
-			
+		
+			::if (user!=null && user.isAmapManager())::
+			<script>
+			// Include the UserVoice JavaScript SDK (only needed once on a page)
+			UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/sayZ1eIZLfSZUa3IwslHCw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+			//
+			// UserVoice Javascript SDK developer documentation:
+			// https://www.uservoice.com/o/javascript-sdk
+			//
+
+			// Set colors
+			UserVoice.push(['set', {
+			  accent_color: '#6aba2e',
+			  trigger_color: 'white',
+			  trigger_background_color: '#e2753a'
+			}]);
+
+			::set infos = user.getUserVoiceInfos()::
+			// Identify the user and pass traits
+			// To enable, replace sample data with actual user traits and uncomment the line
+			UserVoice.push(['identify', {
+			  email:      '::user.email::', // User’s email address
+			  name:       '::user.getName()::', // User’s real name
+			  created_at: ::(user.cdate.getTime()/1000)::, // Unix timestamp for the date the user signed up
+			  id:         ::user.id::, // Optional: Unique id of the user (if set, this should not change)
+			  type:       '::infos.type::', // Optional: segment your users by type
+			  //Si cagette pro : nom de la ferme, sinon nom du groupe
+			  account: {
+			    id:           ::infos.id::, // Optional: associate multiple users with a single account
+			    name:         '::infos.name::', // Account name
+			  //  created_at:   1364406966, // Unix timestamp for the date the account was created
+			  //  monthly_rate: 9.99, // Decimal; monthly rate of the account
+			  //  ltv:          1495.00, // Decimal; lifetime value of the account
+			  //  plan:         'Enhanced' // Plan name for the account
+			  }
+			}]);
+
+			// Add default trigger to the bottom-right corner of the window:
+			UserVoice.push(['addTrigger', { mode: 'smartvote', trigger_position: 'bottom-right' }]);
+
+			// Or, use your own custom trigger:
+			//UserVoice.push(['addTrigger', '#id', { mode: 'smartvote' }]);
+
+			// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+			//UserVoice.push(['autoprompt', {}]);
+			</script>
+			::end::
 ::end::

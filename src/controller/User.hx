@@ -1,4 +1,5 @@
 package controller;
+import pro.db.CagettePro;
 import haxe.crypto.Md5;
 import sugoi.form.elements.Input;
 import sugoi.form.Form;
@@ -70,6 +71,13 @@ class User extends Controller
 		
 		view.amaps = groups;
 		view.wl = db.WaitingList.manager.search($user == app.user, false);
+
+		
+		#if plugins
+		//vendor accounts
+		var vendors = service.VendorService.getVendorsFromUser(app.user);
+		view.vendors = vendors;
+		#end
 
 		view.isGroupAdmin = app.user.getUserGroups().find(ug -> return ug.isGroupManager()) != null;
 

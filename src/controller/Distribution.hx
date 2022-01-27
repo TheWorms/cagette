@@ -523,6 +523,39 @@ class Distribution extends Controller
 		for( d in distributions){
 			checked.push(Std.string(d.catalog.id));
 		}
+		#if plugins
+		var cproVendors = [];
+		var invitationsSent = [];
+
+		for( c in distrib.place.group.getActiveContracts()){
+			var rc = connector.db.RemoteCatalog.getFromContract(c);
+			if( rc!=null ){
+				//is cpro
+				if( pro.db.PNotif.getDistributionInvitation(rc.getCatalog(),distrib).length>0 ){
+					//has already a pending notif
+					invitationsSent.push(c);
+				}else{
+					//invitable
+					cproVendors.push({label: c.vendor.name +" : "+c.name,value:Std.string(c.id)});
+				}				
+			}else{
+				regularVendors.push({label:c.vendor.name +" : "+c.name,value:Std.string(c.id)});
+			}
+		}
+		if(cproVendors.length>0 || invitationsSent.length>0){
+			
+			var html = "<div class='alert alert-warning'><i class='icon icon-info'></i> Invitez les producteurs Cagette Pro à participer à cette distribution : Si vous cochez une case, le producteur correspondant recevra une demande qu'il pourra accepter ou refuser.</div>";
+			form.addElement( new sugoi.form.elements.Html("html1",html,"Producteurs Cagette Pro") );
+			form.addElement( new sugoi.form.elements.CheckboxGroup("cproVendors","",cproVendors,checked,true) );
+			var html = "";
+			for(i in invitationsSent) html += '<div class="disabled">${i.name} : <b>invitation envoyée</b></div>';
+			form.addElement(new sugoi.form.elements.Html("invitationSent",html,""));
+		}
+		#else
+		for( c in distrib.place.group.getActiveContracts()){
+			regularVendors.push({label:c.vendor.name +" : "+c.name,value:Std.string(c.id)});
+		}
+		#end
 		
 		var html = "<div class='alert alert-warning'><i class='icon icon-info'></i> Vous avez la main pour gérer les catalogues de ces producteurs invités. Attention, décocher une case annulera la participation du producteur à cette distribution.</div>";
 		form.addElement( new sugoi.form.elements.Html("html2",html,"Producteurs invités") );
@@ -535,6 +568,15 @@ class Distribution extends Controller
 
 			var existingDistributions = distributions;
 			var existingCproDistributions = [];
+			#if plugins
+			//build existing cpro distribution list
+			for(d in existingDistributions.copy()){
+				if(connector.db.RemoteCatalog.getFromContract(d.catalog)!=null){
+					existingDistributions.remove(d);
+					existingCproDistributions.push(d);
+				}
+			}
+			#end
 
 			//regular vendors
 			var contractIds:Array<Int> = form.getValueOf("invitedVendors").map(Std.parseInt);
@@ -561,6 +603,42 @@ class Distribution extends Controller
 					}
 				}
 			}
+
+			#if plugins
+			//cpro vendors
+			if(cproVendors.length>0){
+				var contractIds:Array<Int> = form.getValueOf("cproVendors").map(Std.parseInt);
+				for( cid in contractIds ){
+					var d = Lambda.find(existingCproDistributions, function(d) return d.catalog.id==cid );				
+					if(d==null){
+						var contract = db.Catalog.manager.get(cid,false);
+						var rc = connector.db.RemoteCatalog.getFromContract(contract);
+						var hasNotif = pro.db.PNotif.getDistributionInvitation(rc.getCatalog(),distrib).length>0;
+						if(!hasNotif){
+							//send notif
+							var contract = db.Catalog.manager.get(cid,false);
+							var rc = connector.db.RemoteCatalog.getFromContract(contract);
+							var catalog = rc.getCatalog();
+							if(catalog!=null){
+								pro.db.PNotif.distributionInvitation(catalog, distrib, app.user);
+							}
+						}
+						
+					}
+				}
+
+				// delete it
+				for( d in existingCproDistributions){
+					if(!Lambda.has(contractIds,d.catalog.id)){
+						try{
+							service.DistributionService.cancelParticipation(d,false);
+						}catch(e:tink.core.Error){
+							throw Error("/distribution",e.message);
+						}
+					}
+				}
+			}
+			#end
 
 			throw Ok("/distribution","La liste des producteurs invités à été mise à jour");
 		}
@@ -1518,6 +1596,11 @@ class Distribution extends Controller
 		}
 		view.distribution = distribution;
 
+		#if plugins
+		var sales = mangopay.MangopayPlugin.getMultiDistribDetailsForGroup(distribution);
+		view.sales = sales;
+		#end
+
 		//memberships
 		var membershipAmount = 0.0;
 		var membershipNum = 0;
@@ -1574,6 +1657,12 @@ class Distribution extends Controller
 		if(app.params.get("csv")=="1"){
 			var out = new Array<Array<String>>();
 			out.push(['Fond de caisse avant distribution',distribution.counterBeforeDistrib.string()]);
+			#if plugins
+			out.push(['Encaissements en liquide',sales.cashTurnover.ttc.string()]);
+			out.push(['La caisse doit contenir',(distribution.counterBeforeDistrib+sales.cashTurnover.ttc).string()]);
+			out.push(['Encaissements en chèque',sales.checkTurnover.ttc.string()]);
+			out.push(['Encaissements en virement',sales.transferTurnover.ttc.string()]);
+			#end
 			out.push([]);
 			out.push(['Total commande par taux de TVA','HT','TTC']);
 			for(k in ordersByVat.keys()){

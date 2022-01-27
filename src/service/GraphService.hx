@@ -1,6 +1,7 @@
 package service;
 import sugoi.apis.google.GeoCode.GeoCodingData;
 import db.Operation;
+import pro.payment.MangopayECPayment;
 import db.Graph;
 
 using tools.DateTool;
@@ -73,7 +74,13 @@ class GraphService{
     }
 
     public static  function mangopay(from:Date,to:Date):Int{
-        return 0;
+        
+        var ops = Operation.manager.search($type==OperationType.Payment && $date>=from && $date<to);
+		var value = 0.0;
+		for( op in ops){
+			if(op.getPaymentType()==MangopayECPayment.TYPE) value += op.amount;
+		}
+		return Math.round(value);
     }
 
 
